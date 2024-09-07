@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Example</title>
+</head>
+<body>
+    <button class="add-post-btn" onclick="showNotification()">+</button>
+
+    <!-- JavaScript কোড সোজা HTML এ যুক্ত করা হলো -->
+    <script>
+        function showNotification() {
+    // চেক করুন যে ব্রাউজার নোটিফিকেশন সমর্থন করে কিনা
+    if ("Notification" in window) {
+        // পারমিশন চাওয়া
+        Notification.requestPermission().then(function (permission) {
+            if (permission === "granted") {
+                try {
+                    // নোটিফিকেশন তৈরি করা (আইকন ছাড়াই)
+                    new Notification("নোটিফিকেশন শিরোনাম", {
+                        body: "এটি একটি উদাহরণ নোটিফিকেশন"
+                    });
+                } catch (error) {
+                    console.error("নোটিফিকেশন তৈরির সময় ত্রুটি ঘটেছে:", error);
+                }
+            } else {
+                console.error("পারমিশন প্রদান করা হয়নি");
+            }
+        }).catch(function (error) {
+            console.error("পারমিশন চাওয়ার সময় একটি ত্রুটি ঘটেছে:", error);
+        });
+    } else {
+        console.error("ব্রাউজার নোটিফিকেশন সমর্থিত নয়");
+    }
+}
+    </script>
+</body>
+</html>
